@@ -94,6 +94,7 @@ func init() {
     cmdHelp,
     //cmdSSH,
     cmdVersion,
+    cmdProvision,
   }
 }
 
