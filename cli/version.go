@@ -26,6 +26,6 @@ var cmdVersion = &Command{
 }
 
 func runVersion(args []string) (exit int) {
-  stdout("fleetctl version %s", version.Version)
+  stdout("paz version %s", version.Version)
   return
 }

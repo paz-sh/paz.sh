@@ -62,11 +62,7 @@ func init() {
   // on paz logs
   log.EnableTimestamps()
 
-  globalFlagset.BoolVar(&globalFlags.Help, "help", false, "Print usage information and exit")
-  globalFlagset.BoolVar(&globalFlags.Help, "h", false, "Print usage information and exit")
-
   globalFlagset.BoolVar(&globalFlags.Debug, "debug", false, "Print out more debug information to stderr")
-  globalFlagset.BoolVar(&globalFlags.Version, "version", false, "Print the version and exit")
 
   globalFlagset.StringVar(&globalFlags.KeyFile, "key-file", "", "Location of TLS key file used to secure communication with the fleet API or etcd")
   globalFlagset.StringVar(&globalFlags.CertFile, "cert-file", "", "Location of TLS cert file used to secure communication with the fleet API or etcd")
