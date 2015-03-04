@@ -1,0 +1,4 @@
+bin/
+coverage/
+gopath/
+*.swp
