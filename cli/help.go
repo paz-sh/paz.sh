@@ -15,50 +15,50 @@
 package main
 
 import (
-  "flag"
-  "fmt"
-  "strings"
-  "text/template"
+	"flag"
+	"fmt"
+	"strings"
+	"text/template"
 
-  "github.com/paz-sh/paz.sh/version"
+	"github.com/paz-sh/paz.sh/version"
 )
 
 const (
-  // used to indicate flag usage should not be printed
-  hidden = "hidden"
+	// used to indicate flag usage should not be printed
+	hidden = "hidden"
 )
 
 var (
-  cmdHelp = &Command{
-    Name:        "help",
-    Summary:     "Show a list of commands or help for one command",
-    Usage:       "[COMMAND]",
-    Description: "Show a list of commands or detailed help for one command",
-    Run:         runHelp,
-  }
+	cmdHelp = &Command{
+		Name:        "help",
+		Summary:     "Show a list of commands or help for one command",
+		Usage:       "[COMMAND]",
+		Description: "Show a list of commands or detailed help for one command",
+		Run:         runHelp,
+	}
 
-  globalUsageTemplate  *template.Template
-  commandUsageTemplate *template.Template
-  templFuncs           = template.FuncMap{
-    "descToLines": func(s string) []string {
-      // trim leading/trailing whitespace and split into slice of lines
-      return strings.Split(strings.Trim(s, "\n\t "), "\n")
-    },
-    "printOption": func(name, defvalue, usage string) string {
-      if usage == hidden {
-        return ""
-      }
-      prefix := "--"
-      if len(name) == 1 {
-        prefix = "-"
-      }
-      return fmt.Sprintf("\n\t%s%s=%s\t%s", prefix, name, defvalue, usage)
-    },
-  }
+	globalUsageTemplate  *template.Template
+	commandUsageTemplate *template.Template
+	templFuncs           = template.FuncMap{
+		"descToLines": func(s string) []string {
+			// trim leading/trailing whitespace and split into slice of lines
+			return strings.Split(strings.Trim(s, "\n\t "), "\n")
+		},
+		"printOption": func(name, defvalue, usage string) string {
+			if usage == hidden {
+				return ""
+			}
+			prefix := "--"
+			if len(name) == 1 {
+				prefix = "-"
+			}
+			return fmt.Sprintf("\n\t%s%s=%s\t%s", prefix, name, defvalue, usage)
+		},
+	}
 )
 
 func init() {
-  globalUsageTemplate = template.Must(template.New("global_usage").Funcs(templFuncs).Parse(`
+	globalUsageTemplate = template.Must(template.New("global_usage").Funcs(templFuncs).Parse(`
 NAME:
 {{printf "\t%s - %s" .Executable .Description}}
 USAGE: 
@@ -72,7 +72,7 @@ Global options can also be configured via upper-case environment variables prefi
 For example, "some-flag" => "PAZ_SOME_FLAG"
 Run "{{.Executable}} help <command>" for more details on a specific command.
 `[1:]))
-  commandUsageTemplate = template.Must(template.New("command_usage").Funcs(templFuncs).Parse(`
+	commandUsageTemplate = template.Must(template.New("command_usage").Funcs(templFuncs).Parse(`
 NAME:
 {{printf "\t%s - %s" .Cmd.Name .Cmd.Summary}}
 USAGE:
@@ -87,56 +87,55 @@ DESCRIPTION:
 }
 
 func runHelp(args []string) (exit int) {
-  if len(args) < 1 {
-    printGlobalUsage()
-    return
-  }
+	if len(args) < 1 {
+		printGlobalUsage()
+		return
+	}
 
-  var cmd *Command
+	var cmd *Command
 
-  for _, c := range commands {
-    if c.Name == args[0] {
-      cmd = c
-      break
-    }
-  }
+	for _, c := range commands {
+		if c.Name == args[0] {
+			cmd = c
+			break
+		}
+	}
 
-  if cmd == nil {
-    stderr("Unrecognized command: %s", args[0])
-    return 1
-  }
+	if cmd == nil {
+		stderr("Unrecognized command: %s", args[0])
+		return 1
+	}
 
-  printCommandUsage(cmd)
-  return
+	printCommandUsage(cmd)
+	return
 }
 
 func printGlobalUsage() {
-  globalUsageTemplate.Execute(out, struct {
-    Executable  string
-    Commands    []*Command
-    Flags       []*flag.Flag
-    Description string
-    Version     string
-  }{
-    cliName,
-    commands,
-    getAllFlags(),
-    cliDescription,
-    version.Version,
-  })
-  out.Flush()
+	globalUsageTemplate.Execute(out, struct {
+		Executable  string
+		Commands    []*Command
+		Flags       []*flag.Flag
+		Description string
+		Version     string
+	}{
+		cliName,
+		commands,
+		getAllFlags(),
+		cliDescription,
+		version.Version,
+	})
+	out.Flush()
 }
 
 func printCommandUsage(cmd *Command) {
-  commandUsageTemplate.Execute(out, struct {
-    Executable string
-    Cmd        *Command
-    CmdFlags   []*flag.Flag
-  }{
-    cliName,
-    cmd,
-    getFlags(&cmd.Flags),
-  })
-  out.Flush()
+	commandUsageTemplate.Execute(out, struct {
+		Executable string
+		Cmd        *Command
+		CmdFlags   []*flag.Flag
+	}{
+		cliName,
+		cmd,
+		getFlags(&cmd.Flags),
+	})
+	out.Flush()
 }
-

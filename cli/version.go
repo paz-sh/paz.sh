@@ -15,17 +15,17 @@
 package main
 
 import (
-  "github.com/paz-sh/paz.sh/version"
+	"github.com/paz-sh/paz.sh/version"
 )
 
 var cmdVersion = &Command{
-  Name:        "version",
-  Description: "Print the version and exit",
-  Summary:     "Print the version and exit",
-  Run:         runVersion,
+	Name:        "version",
+	Description: "Print the version and exit",
+	Summary:     "Print the version and exit",
+	Run:         runVersion,
 }
 
 func runVersion(args []string) (exit int) {
-  stdout("paz version %s", version.Version)
-  return
+	stdout("paz version %s", version.Version)
+	return
 }

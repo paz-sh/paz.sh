@@ -15,89 +15,89 @@
 package log
 
 import (
-  "fmt"
-  "log"
-  "os"
-  "path/filepath"
-  "runtime"
+	"fmt"
+	"log"
+	"os"
+	"path/filepath"
+	"runtime"
 )
 
 const (
-  calldepth = 2
+	calldepth = 2
 )
 
 var (
-  logger = log.New(os.Stderr, "", 0)
-  debug  = false
+	logger = log.New(os.Stderr, "", 0)
+	debug  = false
 )
 
 func EnableTimestamps() {
-  logger.SetFlags(logger.Flags() | log.Ldate | log.Ltime)
+	logger.SetFlags(logger.Flags() | log.Ldate | log.Ltime)
 }
 
 func EnableDebug() {
-  debug = true
+	debug = true
 }
 
 func Debug(v ...interface{}) {
-  if debug {
-    logger.Output(calldepth, header("DEBUG", fmt.Sprint(v...)))
-  }
+	if debug {
+		logger.Output(calldepth, header("DEBUG", fmt.Sprint(v...)))
+	}
 }
 
 func Debugf(format string, v ...interface{}) {
-  if debug {
-    logger.Output(calldepth, header("DEBUG", fmt.Sprintf(format, v...)))
-  }
+	if debug {
+		logger.Output(calldepth, header("DEBUG", fmt.Sprintf(format, v...)))
+	}
 }
 
 func Info(v ...interface{}) {
-  logger.Output(calldepth, header("INFO", fmt.Sprint(v...)))
+	logger.Output(calldepth, header("INFO", fmt.Sprint(v...)))
 }
 
 func Infof(format string, v ...interface{}) {
-  logger.Output(calldepth, header("INFO", fmt.Sprintf(format, v...)))
+	logger.Output(calldepth, header("INFO", fmt.Sprintf(format, v...)))
 }
 
 func Error(v ...interface{}) {
-  logger.Output(calldepth, header("ERROR", fmt.Sprint(v...)))
+	logger.Output(calldepth, header("ERROR", fmt.Sprint(v...)))
 }
 
 func Errorf(format string, v ...interface{}) {
-  logger.Output(calldepth, header("ERROR", fmt.Sprintf(format, v...)))
+	logger.Output(calldepth, header("ERROR", fmt.Sprintf(format, v...)))
 }
 
 func Warning(v ...interface{}) {
-  logger.Output(calldepth, header("WARN", fmt.Sprint(v...)))
+	logger.Output(calldepth, header("WARN", fmt.Sprint(v...)))
 }
 
 func Warningf(format string, v ...interface{}) {
-  logger.Output(calldepth, header("WARN", fmt.Sprintf(format, v...)))
+	logger.Output(calldepth, header("WARN", fmt.Sprintf(format, v...)))
 }
 
 func Fatal(v ...interface{}) {
-  logger.Output(calldepth, header("FATAL", fmt.Sprint(v...)))
-  os.Exit(1)
+	logger.Output(calldepth, header("FATAL", fmt.Sprint(v...)))
+	os.Exit(1)
 }
 
 func Fatalf(format string, v ...interface{}) {
-  logger.Output(calldepth, header("FATAL", fmt.Sprintf(format, v...)))
-  os.Exit(1)
+	logger.Output(calldepth, header("FATAL", fmt.Sprintf(format, v...)))
+	os.Exit(1)
 }
 
 func header(lvl, msg string) string {
-  _, file, line, ok := runtime.Caller(calldepth)
-  if ok {
-    file = filepath.Base(file)
-  }
+	_, file, line, ok := runtime.Caller(calldepth)
+	if ok {
+		file = filepath.Base(file)
+	}
 
-  if len(file) == 0 {
-    file = "???"
-  }
+	if len(file) == 0 {
+		file = "???"
+	}
 
-  if line < 0 {
-    line = 0
-  }
+	if line < 0 {
+		line = 0
+	}
 
-  return fmt.Sprintf("%s %s:%d: %s", lvl, file, line, msg)
+	return fmt.Sprintf("%s %s:%d: %s", lvl, file, line, msg)
 }
