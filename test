@@ -36,8 +36,11 @@ fi
 split=(${TEST// / })
 TEST=${split[@]/#/${REPO_PATH}/}
 
-echo "Running tests..."
+echo "Running unit tests..."
 go test ${COVER} $@ ${TEST}
+
+echo "Running integration tests..."
+bats integration-tests/
 
 echo "Checking gofmt..."
 fmtRes=$(gofmt -l $FMT)
