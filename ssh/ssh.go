@@ -1,5 +1,5 @@
 package ssh
 
 const (
-  DefaultKnownHostsFile = "~/.fleetctl/known_hosts"
+	DefaultKnownHostsFile = "~/.fleetctl/known_hosts"
 )
