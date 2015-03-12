@@ -6,13 +6,26 @@
 	],
 	"Deps": [
 		{
-			"ImportPath": "github.com/coreos/fleet/version",
-			"Comment": "v0.3.2-1055-ga35ee29",
-			"Rev": "a35ee29f4f539d3d2296ac85c302f8b2e7d7a878"
+			"ImportPath": "code.google.com/p/goauth2/oauth",
+			"Comment": "weekly-56",
+			"Rev": "afe77d958c701557ec5dc56f6936fcc194d15520"
 		},
 		{
 			"ImportPath": "github.com/coreos/go-semver/semver",
 			"Rev": "568e959cd89871e61434c1143528d9162da89ef2"
+		},
+		{
+			"ImportPath": "github.com/digitalocean/godo",
+			"Comment": "v0.6.0",
+			"Rev": "66c450f7771b6217edc6b88491c59ad5d604bc7c"
+		},
+		{
+			"ImportPath": "github.com/google/go-querystring/query",
+			"Rev": "d8840cbb2baa915f4836edda4750050a2c0b7aea"
+		},
+		{
+			"ImportPath": "github.com/tent/http-link-go",
+			"Rev": "ac974c61c2f990f4115b119354b5e0b47550e888"
 		}
 	]
 }

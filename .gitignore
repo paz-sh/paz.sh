@@ -2,3 +2,4 @@ bin/
 coverage/
 gopath/
 *.swp
+.DS_Store
