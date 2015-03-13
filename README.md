@@ -22,6 +22,8 @@ $ which bats
 /usr/local/bin/bats
 ```
 
+Note that you may need to run `install.sh` with `sudo` if you do not have permission to write to the installation prefix.
+
 You will also need to install "vet":
 ```
 $ go get code.google.com/p/go.tools/cmd/vet
