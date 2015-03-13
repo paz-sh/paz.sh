@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/paz-sh/paz.sh.svg?branch=master)](https://travis-ci.org/paz-sh/paz.sh)
+
 # paz.sh
 The Paz command-line interface
 
