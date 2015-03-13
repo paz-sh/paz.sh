@@ -8,6 +8,11 @@ matrix:
     - go: 1.2
       env: TOOLS_CMD=code.google.com/p/go.tools/cmd
 
+before_install:
+  - sudo add-apt-repository ppa:duggan/bats --yes
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq bats
+
 install:
  - export GOPATH=${TRAVIS_BUILD_DIR}/Godeps/_workspace:$GOPATH
  - export PATH=${TRAVIS_BUILD_DIR}/Godeps/_workspace/bin:$PATH
