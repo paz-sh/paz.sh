@@ -9,6 +9,8 @@ matrix:
       env: TOOLS_CMD=code.google.com/p/go.tools/cmd
 
 install:
+ - export GOPATH=${TRAVIS_BUILD_DIR}/Godeps/_workspace:$GOPATH
+ - export PATH=${TRAVIS_BUILD_DIR}/Godeps/_workspace/bin:$PATH
  - go get ${TOOLS_CMD}/cover
  - go get ${TOOLS_CMD}/vet
 
