@@ -11,7 +11,25 @@ If you're on a machine without Go 1.3+ but you have Docker installed, run `./bui
 
 ### Testing
 
-Run `./test` to trigger unit and integration tests. [BATS](https://github.com/sstephenson/bats) runs the integration tests against the compiled binary. It should be installed from that link and placed into PATH.
+Run `./test` to trigger unit and integration tests. [BATS](https://github.com/sstephenson/bats) runs the integration tests against the compiled binary. It should be installed from that link and placed into PATH, like so:
+
+```
+$ git clone https://github.com/sstephenson/bats.git
+$ cd bats/
+$ ./install.sh /usr/local
+Installed Bats to /usr/local/bin/bats
+$ which bats
+/usr/local/bin/bats
+```
+
+Note that you may need to run `install.sh` with `sudo` if you do not have permission to write to the installation prefix.
+
+You will also need to install "vet":
+```
+$ go get code.google.com/p/go.tools/cmd/vet
+```
+
+...which in turn depends on [hg](http://mercurial.selenic.com/wiki/Download); you may need to install that too if you haven't done Go builds on your machine before.
 
 ### License
 
