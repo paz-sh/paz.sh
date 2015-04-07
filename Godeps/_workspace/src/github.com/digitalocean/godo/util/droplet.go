@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"_/Users/tomgco/Projects/dev/paz-sh/paz.sh/Godeps/_workspace/src/github.com/digitalocean/godo"
+	"github.com/digitalocean/godo"
 )
 
 const (

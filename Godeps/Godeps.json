@@ -1,5 +1,5 @@
 {
-	"ImportPath": "_/Users/tomgco/Projects/dev/paz-sh/paz.sh",
+	"ImportPath": "github.com/paz-sh/paz.sh",
 	"GoVersion": "go1.4.2",
 	"Packages": [
 		"github.com/paz-sh/paz.sh/cli"

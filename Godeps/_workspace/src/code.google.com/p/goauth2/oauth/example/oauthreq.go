@@ -13,7 +13,7 @@ import (
 	"log"
 	"os"
 
-	"_/Users/tomgco/Projects/dev/paz-sh/paz.sh/Godeps/_workspace/src/code.google.com/p/goauth2/oauth"
+	"code.google.com/p/goauth2/oauth"
 )
 
 var (
