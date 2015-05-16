@@ -18,6 +18,7 @@ type Driver struct {
 	MachineName       string
 	IPAddress         string
 	Region            string
+	UserData					string
 	SSHKeyID          int
 	SSHUser           string
 	SSHPort           int
@@ -131,6 +132,7 @@ func (d *Driver) Create() error {
 		PrivateNetworking: d.PrivateNetworking,
 		Backups:           d.Backups,
 		SSHKeys:           []interface{}{d.SSHKeyID},
+		UserData:          d.UserData,
 	}
 
 	newDroplet, _, err := client.Droplets.Create(createRequest)
