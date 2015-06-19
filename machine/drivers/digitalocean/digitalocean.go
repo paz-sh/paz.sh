@@ -7,6 +7,7 @@ import (
 	"github.com/digitalocean/godo"
 	"code.google.com/p/goauth2/oauth"
 	"github.com/paz-sh/paz.sh/machine/drivers"
+	"github.com/paz-sh/paz.sh/command"
 	"github.com/paz-sh/paz.sh/log"
 	// "github.com/paz-sh/paz.sh/ssh"
 )
@@ -38,26 +39,25 @@ func init() {
 	})
 }
 
-func (d *Driver) DriverName() error {
-	return nil
+func (d *Driver) DriverName() string {
+	return "digitalocean"
 }
 
-func (d *Driver) SetConfigFromFlags(flags drivers.DriverOptions) error {
-	d.AccessToken = flags.String("digitalocean-access-token")
-	d.Image = flags.String("digitalocean-image")
-	d.Region = flags.String("digitalocean-region")
-	d.Size = flags.String("digitalocean-size")
-	d.IPv6 = flags.Bool("digitalocean-ipv6")
-	d.PrivateNetworking = flags.Bool("digitalocean-private-networking")
-	d.Backups = flags.Bool("digitalocean-backups")
-	d.SSHUser = "root"
-	d.SSHPort = 22
-
-	if d.AccessToken == "" {
-		return fmt.Errorf("digitalocean driver requires the --digitalocean-access-token option")
+func (d *Driver) GetCommand() *cli.Command {
+	var cmd =  &cli.Command{
+		Name:    d.DriverName(),
+		Summary: "",
+		Usage:   "",
+		Description: ``,
 	}
 
-	return nil
+	cmd.Run = d.Help
+	cmd.Flags.StringVar(&d.AccessToken, "access-token", "", "DO access token")
+	return cmd
+}
+
+func (d *Driver) Help (args []string) (exit int) {
+	return 0
 }
 
 func (d *Driver) GetIP() (string, error) {
@@ -130,6 +130,7 @@ func (d *Driver) getClient() *godo.Client {
 
 func (d *Driver) Create() error {
 	// log.Infof("Creating SSH key...")
+	log.Infof("%s", )
 
 	// key, err := d.createSSHKey()
 	// if err != nil {

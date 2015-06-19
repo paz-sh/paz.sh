@@ -3,6 +3,7 @@ package host
 import (
 	"errors"
 	"regexp"
+	"os"
 	
 	"github.com/paz-sh/paz.sh/machine/drivers"
 )
@@ -25,11 +26,20 @@ var (
 	ErrUnknownHypervisorType = errors.New("Unknown hypervisor type")
 )
 
-func NewHost(name string, driverName string, driverOptions *Command) (*Host, error) {
+func NewHost(name string, driverName string) (*Host, error) {
 	driver, err := drivers.NewDriver(driverName, name)
+
 	if err != nil {
 		return nil, err
 	}
+
+	var c = driver.GetCommand()
+	c.Flags.Parse(os.Args[2:])
+	var args = c.Flags.Args()
+	if err := c.Flags.Parse(args[1:]); err != nil {
+		return nil, err
+	}
+
 	return &Host{
 		Name:           name,
 		DriverName:     driverName,

@@ -20,6 +20,7 @@ import (
 	"strings"
 	"text/template"
 
+	"github.com/paz-sh/paz.sh/command"
 	"github.com/paz-sh/paz.sh/version"
 )
 
@@ -29,7 +30,7 @@ const (
 )
 
 var (
-	cmdHelp = &Command{
+	cmdHelp = &cli.Command{
 		Name:        "help",
 		Summary:     "Show a list of commands or help for one command",
 		Usage:       "[COMMAND]",
@@ -92,7 +93,7 @@ func runHelp(args []string) (exit int) {
 		return
 	}
 
-	var cmd *Command
+	var cmd *cli.Command
 
 	for _, c := range commands {
 		if c.Name == args[0] {
@@ -113,7 +114,7 @@ func runHelp(args []string) (exit int) {
 func printGlobalUsage() {
 	globalUsageTemplate.Execute(out, struct {
 		Executable  string
-		Commands    []*Command
+		Commands    []*cli.Command
 		Flags       []*flag.Flag
 		Description string
 		Version     string
@@ -127,10 +128,10 @@ func printGlobalUsage() {
 	out.Flush()
 }
 
-func printCommandUsage(cmd *Command) {
+func printCommandUsage(cmd *cli.Command) {
 	commandUsageTemplate.Execute(out, struct {
 		Executable string
-		Cmd        *Command
+		Cmd        *cli.Command
 		CmdFlags   []*flag.Flag
 	}{
 		cliName,

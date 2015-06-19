@@ -15,10 +15,11 @@
 package main
 
 import (
+	"github.com/paz-sh/paz.sh/command"
 	"github.com/paz-sh/paz.sh/version"
 )
 
-var cmdVersion = &Command{
+var cmdVersion = &cli.Command{
 	Name:        "version",
 	Description: "Print the version and exit",
 	Summary:     "Print the version and exit",

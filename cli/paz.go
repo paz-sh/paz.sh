@@ -22,6 +22,7 @@ import (
 	"strings"
 	"text/tabwriter"
 
+	"github.com/paz-sh/paz.sh/command"
 	"github.com/paz-sh/paz.sh/log"
 	"github.com/paz-sh/paz.sh/ssh"
 )
@@ -36,7 +37,7 @@ var (
 	globalFlagset = flag.NewFlagSet("paz", flag.ExitOnError)
 
 	// set of top-level commands
-	commands []*Command
+	commands []*cli.Command
 
 	// flags used by all commands
 	globalFlags = struct {
@@ -76,21 +77,10 @@ func init() {
 	globalFlagset.StringVar(&globalFlags.SSHUserName, "ssh-username", "core", "Username to use when connecting to CoreOS instance.")
 }
 
-type Command struct {
-	Name        string       // Name of the Command and the string to use to invoke it
-	Summary     string       // One-sentence summary of what the Command does
-	Usage       string       // Usage options/arguments
-	Description string       // Detailed description of command
-	Flags       flag.FlagSet // Set of flags associated with this command
-
-	Run func(args []string) int // Run a command with the given arguments, return exit status
-
-}
-
 func init() {
 	out = new(tabwriter.Writer)
 	out.Init(os.Stdout, 0, 8, 1, '\t', 0)
-	commands = []*Command{
+	commands = []*cli.Command{
 		cmdHelp,
 		//cmdSSH,
 		cmdVersion,
@@ -143,7 +133,7 @@ func main() {
 		args = []string{"help"}
 	}
 
-	var cmd *Command
+	var cmd *cli.Command
 
 	// determine which Command should be run
 	for _, c := range commands {

@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 
+	"github.com/paz-sh/paz.sh/command"
 	"github.com/paz-sh/paz.sh/log"
 	"github.com/paz-sh/paz.sh/machine/host"
 
@@ -15,7 +16,7 @@ var (
 	flagHelp     bool
 	flagHosts    int
 	flagList     bool
-	cmdProvision = &Command{
+	cmdProvision = &cli.Command{
 		Name:    "provision",
 		Summary: "Provision instances of Paz on the target provider",
 		Usage:   "[-c=N|--number-of-hosts=N] [-l|--list-providers] [-n|--name] <provider>",
@@ -32,7 +33,6 @@ Provision 1 paz machine on vagrant:
 Provision 1 paz machine on digitalocean
     paz provision --number-of-hosts 1 digitalocean
 `,
-		Run: runProvision,
 	}
 )
 
@@ -45,11 +45,15 @@ func init() {
 	cmdProvision.Flags.BoolVar(&flagList, "list", false, "List the availible targets")
 	cmdProvision.Flags.BoolVar(&flagHelp, "h", false, "Shorthand for --help")
 	cmdProvision.Flags.BoolVar(&flagHelp, "help", false, "Display driver help")
+	// Initialisation Loop, adding Run on init
+	cmdProvision.Run = runProvision;
 }
 
 func runProvision(args []string) (exit int) {
 	if len(args) < 1 {
 		stderr("A target to provision to must be provided")
+		stderr("Listing available targets:")
+		stderr("\n	digitalocean")
 		return 1
 	}
 
@@ -57,7 +61,7 @@ func runProvision(args []string) (exit int) {
 
 	fmt.Println("Creating new host for", driver)
 
-	thing, err := host.NewHost(flagName, driver, cmdProvision)
+	thing, err := host.NewHost(flagName, driver)
 
 	if err != nil {
 		log.Errorf("Error creating host: %s", err)

@@ -7,6 +7,7 @@ import (
 	"os/exec"
 
 	"github.com/paz-sh/paz.sh/ssh"
+	"github.com/paz-sh/paz.sh/command"
 )
 
 // Define what a driver is, much like in docker/machine, but with a new
@@ -17,9 +18,10 @@ type Driver interface {
 	Create() error
 
 	// The name of the Driver
-	DriverName() error
+	DriverName() string
 
 	SetConfigFromFlags(flags DriverOptions) error
+	GetCommand() *cli.Command
 
 	// GetIp
 	GetIP() (string, error)
