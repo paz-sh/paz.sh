@@ -13,7 +13,6 @@ import (
 var (
 	flagTarget   string
 	flagName     string
-	flagHelp     bool
 	flagHosts    int
 	flagList     bool
 	cmdProvision = &cli.Command{
@@ -43,8 +42,6 @@ func init() {
 	cmdProvision.Flags.IntVar(&flagHosts, "number-of-hosts", 3, "Number of hosts to provision")
 	cmdProvision.Flags.BoolVar(&flagList, "l", false, "Shorthand for --list")
 	cmdProvision.Flags.BoolVar(&flagList, "list", false, "List the availible targets")
-	cmdProvision.Flags.BoolVar(&flagHelp, "h", false, "Shorthand for --help")
-	cmdProvision.Flags.BoolVar(&flagHelp, "help", false, "Display driver help")
 	// Initialisation Loop, adding Run on init
 	cmdProvision.Run = runProvision;
 }

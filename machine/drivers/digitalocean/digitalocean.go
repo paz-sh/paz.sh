@@ -46,7 +46,7 @@ func (d *Driver) DriverName() string {
 func (d *Driver) GetCommand() *cli.Command {
 	var cmd =  &cli.Command{
 		Name:    d.DriverName(),
-		Summary: "",
+		Summary: "Provision instances of Paz on digitalocean",
 		Usage:   "",
 		Description: ``,
 	}
