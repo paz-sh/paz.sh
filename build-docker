@@ -1,3 +1,3 @@
 #!/bin/bash -e
 
-docker run -v $PWD:/opt/paz google/golang:1.4 /bin/bash -c "cd /opt/paz && ./build"
+docker run -v $PWD:/opt/paz quay.io/yldio/paz.sh /bin/bash -c "cd /opt/paz && ./build"
