@@ -43,7 +43,7 @@ func init() {
 	cmdProvision.Flags.BoolVar(&flagList, "l", false, "Shorthand for --list")
 	cmdProvision.Flags.BoolVar(&flagList, "list", false, "List the availible targets")
 	// Initialisation Loop, adding Run on init
-	cmdProvision.Run = runProvision;
+	cmdProvision.Run = runProvision
 }
 
 func runProvision(args []string) (exit int) {
