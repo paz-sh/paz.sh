@@ -8,6 +8,7 @@ import (
 	"github.com/paz-sh/paz.sh/machine/host"
 
 	_ "github.com/paz-sh/paz.sh/machine/drivers/digitalocean"
+	_ "github.com/paz-sh/paz.sh/machine/drivers/vagrant"
 )
 
 var (
