@@ -1,7 +1,7 @@
 package digitalocean
 
 import (
-	"fmt"
+	// "fmt"
 	"time"
 
 	"github.com/digitalocean/godo"
@@ -53,6 +53,10 @@ func (d *Driver) GetCommand() *cli.Command {
 
 	cmd.Run = d.Help
 	cmd.Flags.StringVar(&d.AccessToken, "access-token", "", "DO access token")
+	cmd.Flags.StringVar(&d.Image, "image", "coreos-stable", "Image name, suitable names: coreos-stable, coreos-beta, coreos-alpha")
+	cmd.Flags.StringVar(&d.Region, "region", "ams2", "Region for droplet, available: 'nyc1','sfo1','ams2','sgp1','lon1','nyc3','ams3','fra1'")
+	cmd.Flags.StringVar(&d.Size, "size", "512mb", "Droplet Size: 512mb, 1gb, etc")
+	cmd.Flags.IntVar(&d.SSHKeyID, "ssh-key-id", 237178, "Digital Ocean's SSH Key ID, use curl -X GET -H 'Authorization: Bearer $TOKEN' 'https://api.digitalocean.com/v2/account/keys'")
 	return cmd
 }
 
@@ -130,7 +134,6 @@ func (d *Driver) getClient() *godo.Client {
 
 func (d *Driver) Create() error {
 	// log.Infof("Creating SSH key...")
-	log.Infof("%s", )
 
 	// key, err := d.createSSHKey()
 	// if err != nil {

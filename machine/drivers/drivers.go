@@ -20,7 +20,6 @@ type Driver interface {
 	// The name of the Driver
 	DriverName() string
 
-	SetConfigFromFlags(flags DriverOptions) error
 	GetCommand() *cli.Command
 
 	// GetIp
@@ -72,12 +71,6 @@ type Driver interface {
 	// Kill stops a host forcefully
 	Kill() error
 
-}
-
-type DriverOptions interface {
-	String(key string) string
-	Int(key string) int
-	Bool(key string) bool
 }
 
 // From docker/machine
