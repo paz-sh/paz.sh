@@ -25,7 +25,7 @@ var (
 	ErrUnknownHypervisorType = errors.New("Unknown hypervisor type")
 )
 
-func NewHost(name string, driverName string) (*Host, error) {
+func NewHost(name string, driverName string, driverOptions *Command) (*Host, error) {
 	driver, err := drivers.NewDriver(driverName, name)
 	if err != nil {
 		return nil, err

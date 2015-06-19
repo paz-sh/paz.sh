@@ -1,6 +1,7 @@
 package digitalocean
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/digitalocean/godo"
@@ -18,7 +19,7 @@ type Driver struct {
 	MachineName       string
 	IPAddress         string
 	Region            string
-	UserData					string
+	UserData          string
 	SSHKeyID          int
 	SSHUser           string
 	SSHPort           int
@@ -38,6 +39,24 @@ func init() {
 }
 
 func (d *Driver) DriverName() error {
+	return nil
+}
+
+func (d *Driver) SetConfigFromFlags(flags drivers.DriverOptions) error {
+	d.AccessToken = flags.String("digitalocean-access-token")
+	d.Image = flags.String("digitalocean-image")
+	d.Region = flags.String("digitalocean-region")
+	d.Size = flags.String("digitalocean-size")
+	d.IPv6 = flags.Bool("digitalocean-ipv6")
+	d.PrivateNetworking = flags.Bool("digitalocean-private-networking")
+	d.Backups = flags.Bool("digitalocean-backups")
+	d.SSHUser = "root"
+	d.SSHPort = 22
+
+	if d.AccessToken == "" {
+		return fmt.Errorf("digitalocean driver requires the --digitalocean-access-token option")
+	}
+
 	return nil
 }
 

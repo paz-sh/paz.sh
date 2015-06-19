@@ -12,6 +12,7 @@ import (
 var (
 	flagTarget   string
 	flagName     string
+	flagHelp     bool
 	flagHosts    int
 	flagList     bool
 	cmdProvision = &Command{
@@ -42,6 +43,8 @@ func init() {
 	cmdProvision.Flags.IntVar(&flagHosts, "number-of-hosts", 3, "Number of hosts to provision")
 	cmdProvision.Flags.BoolVar(&flagList, "l", false, "Shorthand for --list")
 	cmdProvision.Flags.BoolVar(&flagList, "list", false, "List the availible targets")
+	cmdProvision.Flags.BoolVar(&flagHelp, "h", false, "Shorthand for --help")
+	cmdProvision.Flags.BoolVar(&flagHelp, "help", false, "Display driver help")
 }
 
 func runProvision(args []string) (exit int) {
@@ -54,7 +57,7 @@ func runProvision(args []string) (exit int) {
 
 	fmt.Println("Creating new host for", driver)
 
-	thing, err := host.NewHost(flagName, driver)
+	thing, err := host.NewHost(flagName, driver, cmdProvision)
 
 	if err != nil {
 		log.Errorf("Error creating host: %s", err)

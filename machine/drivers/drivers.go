@@ -19,6 +19,8 @@ type Driver interface {
 	// The name of the Driver
 	DriverName() error
 
+	SetConfigFromFlags(flags DriverOptions) error
+
 	// GetIp
 	GetIP() (string, error)
 
@@ -68,6 +70,12 @@ type Driver interface {
 	// Kill stops a host forcefully
 	Kill() error
 
+}
+
+type DriverOptions interface {
+	String(key string) string
+	Int(key string) int
+	Bool(key string) bool
 }
 
 // From docker/machine
