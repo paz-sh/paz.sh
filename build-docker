@@ -1,3 +1,3 @@
 #!/bin/bash -e
 
-docker run -v $PWD:/opt/paz.sh google/golang:1.3.1 /bin/bash -c "cd /opt/paz.sh && ./build"
+docker run -v $PWD:/opt/paz google/golang:1.4 /bin/bash -c "cd /opt/paz && ./build"

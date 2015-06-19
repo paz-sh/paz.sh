@@ -5,9 +5,9 @@ The Paz command-line interface
 
 ### Building
 
-paz must be built with Go 1.3+ on a \*nix machine. Simply run `./build` and then copy the binaries out of bin/ onto each of your machines. 
+paz must be built with Go 1.4+ on a \*nix machine. Simply run `./build` and then copy the binaries out of bin/ onto each of your machines. 
 
-If you're on a machine without Go 1.3+ but you have Docker installed, run `./build-docker` to compile the binaries instead.
+If you're on a machine without Go 1.4+ but you have Docker installed, run `./build-docker` to compile the binaries instead.
 
 ### Testing
 
